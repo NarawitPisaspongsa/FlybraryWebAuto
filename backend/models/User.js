@@ -5,7 +5,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Enter your name'],
         unique: true,
-        maxlength: [300, 'For Shisui Meikyou'],
+        maxlength: [300, 'Name too long.'],
+    },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user'
     },
     lineID: {
         type: String,
@@ -13,7 +18,8 @@ const userSchema = new mongoose.Schema({
     },
     profile: {
         type: String,
-        default: 'https://drive.google.com/file/d/1ia9j4tSsduolkj8aa-Px HpEkCvj91QOV/view?usp=sharing'
+        default: 'https://drive.google.com/file/d/1ia9j4tSsduolkj8aa-PxHpEkCvj91QOV/view?usp=sharing'
+        
     }
 })
 

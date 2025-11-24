@@ -1,37 +1,25 @@
-const Book = require('../models/Book.js')
+const Borrow = require('../models/Borrow.js')
+const User = require('../models/User.js')
 
-//@desc     Get all books or search books
-//@route    GET /api/v1/books
+//@desc     See all borrowed books
+//@route    GET /api/v1/borrows
 //@access   Public
-exports.getBooks = async (req, res, next) => {
+exports.getBorrows = async (req, res, next) => {
     try {
-        const searchTerm = req.query.term;
-        let searchResults;
-
-        if (!searchTerm) {
-            searchResults = await Book.find({});
-        } else {
-            searchResults = await Book.find({
-                $or: [
-                    { name: { $regex: searchTerm, $options: 'i'} },
-                    { author: { $regex: searchTerm, $options: 'i'} },
-                    { desc: { $regex: searchTerm, $options: 'i'} }
-                ]
-            });
-        }
+        
+        borrows = await Borrow.find({});
 
         return res.status(200).json({
             success: true,
-            count: searchResults.length,
-            data: searchResults
-        });
+            data: borrows
+        })
 
     } catch (err) {
-        console.error("Error fetching books:", err.message);
+        console.error("Error fetching borrowing instances:", err.message);
         
         return res.status(500).json({
             success: false,
-            error: 'Internal Server Error during book retrieval.'
+            error: 'Internal Server Error during borrowing instances retrieval.'
         });
     }
 };
