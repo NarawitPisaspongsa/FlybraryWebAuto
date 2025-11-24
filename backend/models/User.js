@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
     },
     lineID: {
         type: String,
-        required: [true, 'Sign up with line please']
+        required: [true, 'Sign in with line please']
     },
     profile: {
         type: String,
