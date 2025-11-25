@@ -10,7 +10,6 @@ export default function Home() {
 
   return (
     <main className='flex flex-col leading-none'>
-        {/* <BannerSection /> */}
         HOME PAGE
     </main>
   )

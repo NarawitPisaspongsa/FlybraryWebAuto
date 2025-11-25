@@ -4,7 +4,7 @@ import Image from 'next/image';
 
 export default function SignInPage() {
     return (
-        <div className="relative flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+        <div className="relative flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-50 via-white to-indigo-50">
             {/* Decorative background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
@@ -58,7 +58,7 @@ export default function SignInPage() {
                     <div className="mt-8 text-center">
                         <p className="text-sm text-gray-500">
                             By continuing, you agree to our{' '}
-                            <a href="#" className="text-blue-600 hover:text-blue-700 font-medium">
+                            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="text-blue-600 hover:text-blue-700 font-medium">
                                 Terms of Service
                             </a>
                         </p>

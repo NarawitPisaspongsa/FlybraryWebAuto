@@ -12,7 +12,7 @@ export default function MainLayout({
   return (
     <>
       <MenuBar />
-        <div className='container mt-24'>
+        <div>
             {children}
         </div>
     </>
