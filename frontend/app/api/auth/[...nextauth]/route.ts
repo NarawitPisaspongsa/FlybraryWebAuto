@@ -1,16 +1,25 @@
-import { NextResponse } from 'next/server';
+import NextAuth from "next-auth";
+import LineProvider from "next-auth/providers/line";
 
-export async function GET() {
-  const clientId = process.env.LINE_CHANNEL_ID!;
-  const redirectUri = encodeURIComponent(process.env.LINE_REDIRECT_URI!);
+const handler = NextAuth({
+  providers: [
+    LineProvider({
+      clientId: process.env.LINE_CHANNEL_ID!,
+      clientSecret: process.env.LINE_CHANNEL_SECRET!,
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.accessToken = account.access_token;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+       session.accessToken = token?.accessToken as string;
+      return session;
+    },
+  },
+});
 
-  const authUrl =
-    `https://access.line.me/oauth2/v2.1/authorize?` +
-    `response_type=code&` +
-    `client_id=${clientId}&` +
-    `redirect_uri=${redirectUri}&` +
-    `state=random123&` + // can be random
-    `scope=profile%20openid%20email`;
-
-  return NextResponse.redirect(authUrl);
-}
+export { handler as GET, handler as POST };

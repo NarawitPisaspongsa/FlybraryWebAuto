@@ -1,5 +1,6 @@
 'use client'
 
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 
 export default function SignInPage() {
@@ -40,7 +41,7 @@ export default function SignInPage() {
 
                     {/* LINE Login Button */}
                     <button
-                        onClick={() => window.location.href = '/api/auth/line'}
+                        onClick={() => signIn("line")}
                         className="w-full flex items-center justify-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold rounded-xl px-6 py-4 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                     >
                         <svg

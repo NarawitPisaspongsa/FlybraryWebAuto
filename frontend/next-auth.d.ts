@@ -2,6 +2,7 @@ import NextAuth from 'next-auth'
 
 declare module 'next-auth' {
   interface Session {
+    accessToken?: string
     user: {
       token: string // JWT token
       role: string // User role
@@ -16,5 +17,9 @@ declare module 'next-auth' {
       lineId?: string
 
     }
+  }
+
+  interface JWT {
+    accessToken?: string;
   }
 }
