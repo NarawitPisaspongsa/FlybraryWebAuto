@@ -16,12 +16,12 @@ export async function logout() {
 //---------------------
 // POST
 //---------------------
-export async function login({ email, password } : { email: string, password: string }) {
+export async function findOrCreateUser(profile : any) {
   return usePost(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/login`, {
     headers: {
       "Content-Type": "application/json",
       Accept: 'application/json',
     },
-    body: JSON.stringify({ email , password })
+    body: JSON.stringify(profile)
   })
 }

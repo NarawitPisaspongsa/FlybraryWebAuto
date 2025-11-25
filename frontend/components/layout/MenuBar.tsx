@@ -28,6 +28,7 @@ import {
   ArrowRightStartOnRectangleIcon,
   WrenchScrewdriverIcon,
   HomeIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline'
 import { UserCircleIcon } from '@heroicons/react/24/solid'
 
@@ -46,6 +47,12 @@ export default function MenuBar() {
       name: 'หน้าหลัก',
       icon: <HomeIcon className='size-5' />,
       path: '/',
+      subPages: [],
+    },
+    {
+      name: 'หนังสือ',
+      icon: <BookOpenIcon className='size-5'/>,
+      path: '/books',
       subPages: [],
     },
   ]
@@ -145,18 +152,6 @@ export default function MenuBar() {
       color: 'red',
     },
   ]
-
-  if (session?.user.role && session?.user.role !== 'student') {
-    options.push({
-      type: 'divider',
-    })
-    options.push({
-      label: 'จัดการระบบ',
-      icon: <WrenchScrewdriverIcon className='size-5' />,
-      href: '/console',
-      color: 'gray',
-    })
-  }
 
   return (
     <div className='fixed top-0 z-[1000] w-screen'>

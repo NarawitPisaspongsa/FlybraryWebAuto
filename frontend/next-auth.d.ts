@@ -3,6 +3,7 @@ import NextAuth from 'next-auth'
 declare module 'next-auth' {
   interface Session {
     accessToken?: string
+    userId?: string
     user: {
       token: string // JWT token
       role: string // User role
@@ -15,7 +16,6 @@ declare module 'next-auth' {
       email?: string
       tel?: string
       lineId?: string
-
     }
   }
 

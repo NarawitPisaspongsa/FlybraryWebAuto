@@ -4,13 +4,12 @@ import { Noto_Sans_Thai } from 'next/font/google'
 import './globals.css'
 import { ModalProvider } from '../providers/ModalProvider'
 import NextAuthProvider from '../providers/NextAuthProvider'
-import { getServerSession } from 'next-auth'
 import MainLayout from '../components/layout/MainLayout'
-import { authOptions } from '../libs/authOptions'
 import { BannerProvider } from '../providers/BannerProvider'
 import { SearchProvider } from '../providers/SearchProvider'
 import { SidebarProvider } from '../providers/SidebarProvider'
 import { SnackbarProvider } from '../providers/SnackbarProvider'
+import { getSession } from 'next-auth/react'
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ['latin', 'thai'], // Specify the Thai subset for proper character display
@@ -29,7 +28,7 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   // Get the user's session based on the request
-  const session = await getServerSession(authOptions)
+  const session = await getSession()
 
   return (
     <html lang='en'>

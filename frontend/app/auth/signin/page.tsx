@@ -12,6 +12,10 @@ export default function SignInPage() {
         router.push('/');
     }
 
+    const handleLineSignin = async () => {
+        await signIn('line');
+    }
+
     return(
         <div className="relative flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-50 via-white to-indigo-50">
             {/* Decorative background elements */}
@@ -49,7 +53,7 @@ export default function SignInPage() {
 
                     {/* LINE Login Button */}
                     <button
-                        onClick={() => signIn("line")}
+                        onClick={() => handleLineSignin()}
                         className="w-full flex items-center justify-center gap-3 bg-[#06C755] hover:bg-[#05b34c] text-white font-semibold rounded-xl px-6 py-4 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                     >
                         <svg
