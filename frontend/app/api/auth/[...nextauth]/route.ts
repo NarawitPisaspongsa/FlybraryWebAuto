@@ -17,25 +17,25 @@ const handler = NextAuth({
   callbacks: {
     async jwt({ token, account, profile }) {
       if (account) {
-        if (profile) {
-          const userFromDB = await findOrCreateUser(profile);
-          token.userId = userFromDB._id.toString();
-          token.role = userFromDB.role;
-          token.name = userFromDB.name;
-          token.email = userFromDB.email;
-          token.picture = userFromDB.picture;
-        }
+        // if (profile) {
+        //   const userFromDB = await findOrCreateUser(profile);
+        //   token.userId = userFromDB._id.toString();
+        //   token.role = userFromDB.role;
+        //   token.name = userFromDB.name;
+        //   token.email = userFromDB.email;
+        //   token.picture = userFromDB.picture;
+        // }
         token.access_token = account.access_token
       }
       return token;
     },
     async session({ session, token }) {
       session.accessToken = token?.accessToken as string;
-      session.user.id = token.userId as number;
-      session.user.role = token.role as string;
-      session.user.name = token.name as string;
-      session.user.email = token.email as string;
-      session.user.profilePictureUrl = token.picture as string;
+      // session.user.id = token.userId as number;
+      // session.user.role = token.role as string;
+      // session.user.name = token.name as string;
+      // session.user.email = token.email as string;
+      // session.user.profilePictureUrl = token.picture as string;
       return session;
     },
     async redirect({ url, baseUrl }) {
