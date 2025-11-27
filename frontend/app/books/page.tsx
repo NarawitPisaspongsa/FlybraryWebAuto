@@ -48,12 +48,12 @@ export default async function BooksPage() {
       <h1 className="text-3xl font-bold mb-4 ml-6">All Books</h1>
       <Divider />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 p-6">
       {books.map((book: any) => (
           <Link
             href={`/books/${book.id}`}
             key={book.id}
-            className="relative p-4 border gap-4 rounded-lg shadow hover:shadow-lg transition bg-white flex flex-row"
+            className="relative p-4 border gap-4 rounded-lg shadow hover:shadow-lg transition bg-white flex flex-col sm:flex-row"
           >
             <span
               className={`absolute top-3 right-3 px-3 py-1 text-sm rounded-full ${

@@ -18,16 +18,13 @@ export default function SignInPage() {
 
     return(
         <div className="relative flex flex-col items-center justify-center min-h-screen w-full bg-gradient-to-br from-blue-50 via-white to-indigo-50">
-            {/* Decorative background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-blue-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
                 <div className="absolute top-40 right-10 w-72 h-72 bg-purple-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
                 <div className="absolute -bottom-8 left-1/2 w-72 h-72 bg-pink-200 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
             </div>
 
-            {/* Main content card */}
             <div className="relative z-10 w-full max-w-md px-6">
-                {/* Card with glassmorphism effect */}
                 <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-10 border border-white/20">
                     
                     {/* Logo section */}
@@ -88,7 +85,6 @@ export default function SignInPage() {
                 </p>
             </div>
 
-            {/* Add custom animations */}
             <style jsx>{`
                 @keyframes blob {
                     0% {
