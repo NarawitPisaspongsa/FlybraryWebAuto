@@ -47,7 +47,7 @@ export default function ProfilePage() {
       {/* Top Section */}
       <div className="flex md:flex-row items-center justify-around md:items-start gap-8">
         <Image
-          src={user?.profilePictureUrl || ''}
+          src={user?.image || ''}
           alt="profile picture"
           width={200}
           height={200}

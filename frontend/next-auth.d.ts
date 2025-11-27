@@ -3,6 +3,7 @@ import NextAuth from 'next-auth'
 declare module 'next-auth' {
   interface Session {
     accessToken?: string
+    idToken?: string
     userId?: string
     user: {
       token: string // JWT token
@@ -11,7 +12,7 @@ declare module 'next-auth' {
       // user data
       id: number
       name: string
-      profilePictureUrl: string
+      image: string
 
       email?: string
       tel?: string
