@@ -7,11 +7,11 @@ const handler = NextAuth({
     LineProvider({
       clientId: process.env.LINE_CHANNEL_ID!,
       clientSecret: process.env.LINE_CHANNEL_SECRET!,
-      authorization: {
-        params: {
-          scope: "profile openid email",
-        },
-      },
+      // authorization: {
+      //   params: {
+      //     scope: "profile openid email",
+      //   },
+      // },
     }),
   ],
   callbacks: {
