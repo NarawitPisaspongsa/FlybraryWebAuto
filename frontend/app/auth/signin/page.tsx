@@ -8,6 +8,8 @@ export default function SignInPage() {
     const router = useRouter();
     const { data: session } = useSession();
 
+    console.log(session?.user)
+
     if (session) {
         router.push('/');
     }
