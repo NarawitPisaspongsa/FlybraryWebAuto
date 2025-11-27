@@ -16,17 +16,12 @@ import { useModal } from '../../providers/ModalProvider'
 
 // import util
 import {
-  Disclosure,
-  DisclosureButton,
-  DisclosurePanel,
+  Disclosure
 } from '@headlessui/react'
 
 // import icon
 import {
-  Bars3Icon,
-  XMarkIcon,
   ArrowRightStartOnRectangleIcon,
-  WrenchScrewdriverIcon,
   HomeIcon,
   BookOpenIcon,
 } from '@heroicons/react/24/outline'
@@ -142,7 +137,7 @@ export default function MenuBar() {
     {
       label: 'โปรไฟล์',
       icon: <UserCircleIcon className='size-5' />,
-      href: `/profile/${session?.user?.id}`,
+      href: `/profile`,
       color: 'gray',
     },
     {
