@@ -19,15 +19,23 @@ const handler = NextAuth({
           scope: "openid profile email",
         },
       },
-    }),
-  ],
+      profile(profile) {
+        return {
+          id: profile.sub,
+          name: profile.name,
+          image: profile.picture,
+          email: profile.email ?? null,
+          lineId: profile.sub,
+        };
+      },
+    }
+  )],
   session: {
     strategy: "jwt",
   },
   callbacks: {
     async jwt({ token, account, profile }) {
-      const p = profile as lineProfileInterface
-      console.log("LINE profile:", p);
+      console.log("LINE profile:", profile);
       
       // if (account && profile) {
       //   token.accessToken = account.access_token;
