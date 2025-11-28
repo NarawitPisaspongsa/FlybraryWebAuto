@@ -26,17 +26,15 @@ const transactions = [
   },
 ];
 
-const currentlyBorrowing = [
-{
-    id: "QR001",
-    name: "The Art of Programming",
-    desc: "Covers relational DBs, NoSQL, transactions, and distributed systems.",
-    author: "Hector Garcia-Molina",
-    borrowDate: "2025-01-15",
-    coverImage:
-    "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=400",
-},
-];
+const currentlyBorrowing = [{
+  id: "QR001",
+  name: "The Art of Programming",
+  desc: "Covers relational DBs, NoSQL, transactions, and distributed systems.",
+  author: "Hector Garcia-Molina",
+  borrowDate: "2025-01-15",
+  coverImage:
+  "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=400",
+}];
 
 export default function ProfilePage() {
   const { data : session } = useSession();
@@ -45,7 +43,7 @@ export default function ProfilePage() {
   return (
     <div className="max-w-4xl mx-auto p-8 space-y-6 mt-20">
       {/* Top Section */}
-      <div className="flex md:flex-row items-center justify-around md:items-start gap-8">
+      <div className="flex items-center justify-around gap-2">
         <Image
           src={user?.picture || ''}
           alt="profile picture"
