@@ -26,8 +26,10 @@ const handler = NextAuth({
             picture: profile.image,
             lineId: profile.sub,   
           });
-
-          token.userId = userFromDB.id.toString();
+          
+          console.log("LINE profile:", profile);
+          
+          token.userId = userFromDB.id;
           token.role = userFromDB.role;
           token.name = userFromDB.name;
           token.picture = userFromDB.picture;
@@ -40,7 +42,7 @@ const handler = NextAuth({
       session.accessToken = token.accessToken as string;
       session.idToken = token.idToken as string;
 
-      session.user.id = token?.userId as number;
+      session.user.id = token.userId as number;
       session.user.role = token?.role as string;
       session.user.name = token?.name as string;
       session.user.image = token?.picture as string;
