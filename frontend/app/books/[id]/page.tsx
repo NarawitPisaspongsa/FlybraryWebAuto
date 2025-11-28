@@ -73,7 +73,7 @@ export default function BookDetail({ params }: { params: { id: string } }) {
   if (loading) return <p className="p-6 mt-20 w-full text-center justify-center">Loading...</p>;
   if (!book && !loading) return <p className="p-6 mt-20 w-full text-center justify-center">Book not found</p>;
 
-  const isBorrowedByUser = book?.borrowedBy === session?.userId;
+  const isBorrowedByUser = book?.borrowedBy === session?.user?.userId;
 
   return (
     <div className="p-10 md:px-20 py-10 w-full items-center justify-center gap-5 mx-auto mt-20 flex flex-col">
