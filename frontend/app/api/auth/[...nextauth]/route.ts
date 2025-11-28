@@ -31,31 +31,33 @@ const handler = NextAuth({
       console.log("Line Account:", account);
       console.log("LINE profile:", profile);
       
-      // if (account && profile) {
-      //   token.accessToken = account.access_token;
-      //   token.idToken = account.id_token;
+      if (account && profile) {
+        token.accessToken = account.access_token;
+        token.idToken = account.id_token;
 
-      //   const userFromDB = await findOrCreateUser({
-      //     displayName: profile.name,    
-      //     picture: profile.image,
-      //     lineId: profile.sub,   
-      //   });
+        // const userFromDB = await findOrCreateUser({
+        //   displayName: profile.name,    
+        //   picture: profile.image,
+        //   lineId: profile.sub,   
+        // });
         
-      //   token.userId = userFromDB.id;
-      //   token.role = userFromDB.role;
-      //   token.name = userFromDB.name;
-      //   token.picture = userFromDB.picture;
-      //   token.lineId = userFromDB.lineId;
-      // }
+        // token.userId = userFromDB.id;
+        // token.role = userFromDB.role;
+        token.name = profile.name;
+        token.picture = profile.image;
+        token.lineId = profile.sub;
+      }
       return token;
     },
     async session({ session, token }) {
       if (token) {
+        console.log("TOKEN: ", token)
+
         session.accessToken = token.accessToken as string;
         session.idToken = token.idToken as string;
 
-        session.user.id = token.userId as number;
-        session.user.role = token.role as string;
+        // session.user.id = token.userId as number;
+        // session.user.role = token.role as string;
         session.user.name = token.name as string;
         session.user.image = token.picture as string;
         session.user.lineId = token.lineId as string;
