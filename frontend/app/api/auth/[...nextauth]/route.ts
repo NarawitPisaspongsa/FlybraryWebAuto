@@ -1,6 +1,13 @@
 import { findOrCreateUser } from "@/libs/auth";
-import NextAuth from "next-auth";
+import NextAuth, { Profile } from "next-auth";
 import LineProvider from "next-auth/providers/line";
+
+interface lineProfileInterface {
+  sub: string,
+  name: string,
+  picture: string,
+  email: string,
+}
 
 const handler = NextAuth({
   providers: [
@@ -12,15 +19,6 @@ const handler = NextAuth({
           scope: "openid profile email",
         },
       },
-      profile(profile) {
-        return {
-          id: profile.sub,
-          name: profile.name,
-          image: profile.picture,
-          email: profile.email ?? null,
-          lineId: profile.sub,
-        };
-      },
     }),
   ],
   session: {
@@ -28,7 +26,8 @@ const handler = NextAuth({
   },
   callbacks: {
     async jwt({ token, account, profile }) {
-      console.log("LINE profile:", profile);
+      const p = profile as lineProfileInterface
+      console.log("LINE profile:", p);
       
       // if (account && profile) {
       //   token.accessToken = account.access_token;
