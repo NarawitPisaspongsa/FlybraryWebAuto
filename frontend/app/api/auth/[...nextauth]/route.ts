@@ -9,7 +9,7 @@ const handler = NextAuth({
       clientSecret: process.env.LINE_CHANNEL_SECRET!,
       authorization: {
         params: {
-          scope: "profile openid email",
+          scope: "profile openid",
         },
       },
     }),
@@ -22,8 +22,7 @@ const handler = NextAuth({
 
         if (profile) {
           const userFromDB = await findOrCreateUser({
-            displayName: profile.name,
-            email: profile.email,     
+            displayName: profile.name,    
             picture: profile.image,
             lineId: profile.sub,   
           });
@@ -31,7 +30,6 @@ const handler = NextAuth({
           token.userId = userFromDB.id.toString();
           token.role = userFromDB.role;
           token.name = userFromDB.name;
-          token.email = userFromDB.email;
           token.picture = userFromDB.picture;
           token.lineId = userFromDB.lineId;
         }
@@ -45,7 +43,6 @@ const handler = NextAuth({
       session.user.id = token?.userId as number;
       session.user.role = token?.role as string;
       session.user.name = token?.name as string;
-      session.user.email = token?.email as string;
       session.user.image = token?.picture as string;
       session.user.lineId = token?.lineId as string;
 

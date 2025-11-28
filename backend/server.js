@@ -8,6 +8,11 @@ dotenv.config({ path: "./config/config.env" });
 
 connectDB();
 
+const books = require('./routes/books');
+const borrows = require('./routes/borrows');
+
+
+
 const app = express();
 
 //body parser
@@ -20,13 +25,6 @@ app.use(cors())
 app.use(cookieParser());
 
 //Mount routers
-app.use("/api/v1/camps", camps);
+app.use("/api/v1/books", books);
 app.use("/api/v1/auth", auth);
-app.use("/api/v1/bookings", bookings);
-app.use("/api/v1/camps/:campId/amenities", amenities);
-app.use('/api/v1/amenitybookings', amenityBookings);
-app.use('/api/v1/campreviews', campReviews);
-app.use('/api/v1/reviews', userReviews);
-app.use('/api/v1/bookingreviews', bookingReviews);
-//by kwan
-app.use('/api/v1/reports',reports);
+app.use("/api/v1/borrows", borrows);

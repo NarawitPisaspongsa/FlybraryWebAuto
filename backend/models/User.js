@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         enum: ['user', 'admin'],
         default: 'user'
     },
-    lineID: {
+    lineId: {
         type: String,
         required: [true, 'Sign in with line please']
     },

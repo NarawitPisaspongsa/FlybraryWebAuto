@@ -25,10 +25,10 @@ exports.getBorrows = async (req, res, next) => {
 };
 
 
-//@desc     Get specific book by id
+//@desc     Get specific borrow instance by id
 //@route    GET /api/v1/books/:id
 //@access   Public
-exports.getBook = async (req, res, next) => {
+exports.getBorrow = async (req, res, next) => {
     try {
         const bookId = req.params.id;
 
