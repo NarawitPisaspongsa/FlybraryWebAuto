@@ -9,7 +9,7 @@ interface LineProfile {
   lineId: string;
 }
 
-const handler = NextAuth({
+export const handler = NextAuth({
   providers: [
     LineProvider({
       clientId: process.env.LINE_CHANNEL_ID!,
@@ -44,7 +44,7 @@ const handler = NextAuth({
         // token.role = userFromDB.role;
         token.name = p.name;
         token.picture = p.picture;
-        token.lineId = p.lineId;
+        token.lineId = p.sub;
       }
 
       console.log("TOKEN:", token)

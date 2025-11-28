@@ -8,7 +8,8 @@ import MainLayout from '../components/layout/MainLayout'
 import { BannerProvider } from '../providers/BannerProvider'
 import { SearchProvider } from '../providers/SearchProvider'
 import { SnackbarProvider } from '../providers/SnackbarProvider'
-import { getSession } from 'next-auth/react'
+import { getServerSession } from 'next-auth'
+import { handler } from './api/auth/[...nextauth]/route'
 
 const notoSansThai = Noto_Sans_Thai({
   subsets: ['latin', 'thai'], // Specify the Thai subset for proper character display
@@ -26,8 +27,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // Get the user's session based on the request
-  const session = await getSession()
+  const session = await getServerSession(handler)
 
   return (
     <html lang='en'>
