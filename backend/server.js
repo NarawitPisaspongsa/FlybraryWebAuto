@@ -11,7 +11,7 @@ connectDB();
 // const books = require('./routes/books');
 // const borrows = require('./routes/borrows');
 // FIX: Import the auth router here
-const auth = require('./routes/auth'); 
+const auth = require('./routes/auth.js'); 
 
 
 const app = express();
@@ -29,11 +29,3 @@ app.use(cookieParser());
 // app.use("/api/v1/books", books);
 app.use("/api/v1/auth", auth); // Now 'auth' is defined
 // app.use("/api/v1/borrows", borrows);
-
-// Define PORT and start the server (assuming you had this at the end of the original file)
-const PORT = process.env.PORT || 5000;
-
-app.listen(
-    PORT, 
-    console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
-);
