@@ -43,17 +43,19 @@ export default function BookDetail() {
 
   const handleBorrowBook = async () => {
     const res = await borrowBook(id || '', session?.user?.userId || '');
-    if (res.success) setBook(res.data); 
+    if (res.success) location.reload();
   }
 
   const handleReturnBook = async () => {
     const res = await returnBook(id || '');
-    if (res.success) setBook(res.data); 
+    if (res.success) location.reload();
   }
 
   if (loading) return (
     <p className="p-6 mt-20 w-full text-center justify-center">
-      <LoadingSpinner></LoadingSpinner>Loading...</p>
+      <LoadingSpinner className="mt-10 p-10 text-center justify-center w-full"></LoadingSpinner>
+      Loading...
+    </p>
   )
   if (!book && !loading) return <p className="p-6 mt-20 w-full text-center justify-center">Book not found</p>;
 
