@@ -1,6 +1,5 @@
-import express from "express";
-import { getBooks, getBook, borrowBook, returnBook, getBooksBorrowedByUser } from "../controllers/book.js";
-
+const express = require("express");
+const { getBooks, getBook, getBooksBorrowedByUser, borrowBook, returnBook } = require("../controllers/book.js");
 const router = express.Router();
 
 router.get('/', getBooks)

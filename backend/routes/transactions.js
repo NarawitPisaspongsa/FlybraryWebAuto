@@ -1,12 +1,11 @@
-import express from "express";
-import { getTransactions, getTransaction, getTransactionsByUser, getTransactionsByBook } from "../controllers/transaction.js";
-
+const express = require("express");
+const { getTransactions, getTransaction, getTransactionsByUser, getTransactionsByBook } = require("../controllers/transaction.js");
 const router = express.Router();
 
-router.get('/transaction', getTransactions)
-router.get('/transaction/:id', getTransaction)
-router.get('/transaction/user/:id', getTransactionsByUser)
-router.get('/transaction/book/:id', getTransactionsByBook)
+router.get('/', getTransactions)
+router.get('/:id', getTransaction)
+router.get('/user/:id', getTransactionsByUser)
+router.get('/book/:id', getTransactionsByBook)
 
 module.exports = router;
 export default router;

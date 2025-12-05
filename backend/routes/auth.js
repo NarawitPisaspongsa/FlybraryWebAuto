@@ -1,4 +1,4 @@
-import { login, getMyProfile } from "../controllers/auth.js";
+const login = require("../controllers/auth").login;
 const express = require("express");
 
 const router = express.Router();
@@ -7,4 +7,3 @@ const router = express.Router();
 router.post('/login', login);
 
 module.exports = router;
-export default router;
