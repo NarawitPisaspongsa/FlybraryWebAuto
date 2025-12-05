@@ -1,17 +1,17 @@
-const Borrow = require('../models/Borrow.js')
+const Transaction = require('../models/Transaction.js')
 const User = require('../models/User.js')
 
-//@desc     See all borrowed books
-//@route    GET /api/v1/borrows
+//@desc     See all transaction books
+//@route    GET /api/v1/transactions
 //@access   Public
-exports.getBorrows = async (req, res, next) => {
+exports.getTransaction = async (req, res, next) => {
     try {
         
-        borrows = await Borrow.find({});
+        transaction = await Transaction.find({});
 
         return res.status(200).json({
             success: true,
-            data: borrows
+            data: transaction
         })
 
     } catch (err) {
@@ -25,40 +25,40 @@ exports.getBorrows = async (req, res, next) => {
 };
 
 
-//@desc     Get specific borrow instance by id
-//@route    GET /api/v1/books/:id
+//@desc     Get specific transaction instance by id
+//@route    GET /api/v1/transactions/:id
 //@access   Public
 exports.getBorrow = async (req, res, next) => {
     try {
-        const bookId = req.params.id;
+        const txId = req.params.id;
 
-        const book = await Book.findById(bookId);
+        const transaction = await Transaction.findById(txId);
 
-        if (!book) {
+        if (!transaction) {
             return res.status(404).json({
                 success: false,
-                error: `Book not found with ID: ${bookId}`
+                error: `Transaction not found with ID: ${txId}`
             });
         }
 
         return res.status(200).json({
             success: true,
-            data: book
+            data: transaction
         });
 
     } catch (err) {
-        console.error(`Error fetching book with ID ${req.params.id}:`, err.message);
+        console.error(`Error fetching Transaction with ID ${req.params.id}:`, err.message);
 
         if (err.name === 'CastError') {
              return res.status(400).json({
                 success: false,
-                error: `Invalid Book ID format: ${req.params.id}`
+                error: `Invalid Transaction ID format: ${req.params.id}`
             });
         }
 
         return res.status(500).json({
             success: false,
-            error: 'Internal Server Error during single book retrieval.'
+            error: 'Internal Server Error during single Transaction retrieval.'
         });
     }
 };

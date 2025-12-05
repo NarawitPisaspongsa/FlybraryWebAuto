@@ -74,3 +74,108 @@ exports.getBook = async (req, res, next) => {
         });
     }
 };
+
+//@desc     Update book status to borrowed
+//@route    Put /api/v1/books/borrow/:id
+//@access   Private
+exports.borrowBook = async (req, res, next) => {
+    try {
+        const bookId = req.params.id;
+        const userId = req.body.userId;
+
+        const book = await Book.findById(bookId);
+
+        if (!book) {
+            return res.status(404).json({
+                success: false,
+                error: `Book not found with ID: ${bookId}`
+            });
+        }
+
+        if (book.status === 'borrowed') {
+            return res.status(400).json({
+                success: false,
+                error: 'Book is already borrowed'
+            });
+        }
+
+        book.status = 'borrowed';
+        await book.save();
+
+        await Transaction.create({
+            user: userId,
+            book: bookId,
+            borrowDate: new Date(),
+            returnDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        });
+
+        return res.status(200).json({
+            success: true,
+            data: book,
+            message: 'Book borrowed successfully'
+        });
+
+    } catch (err) {
+        console.error(`Error borrowing book with ID ${req.params.id}:`, err.message);
+
+        if (err.name === 'CastError') {
+            return res.status(400).json({
+                success: false,
+                error: `Invalid Book ID format: ${req.params.id}`
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            error: 'Internal Server Error during book borrowing.'
+        });
+    }
+};
+
+//@desc     Update book status to available
+//@route    Put /api/v1/books/return/:id
+//@access   Private
+exports.returnBook = async (req, res, next) => {
+    try {
+        const bookId = req.params.id;
+        const book = await Book.findById(bookId);
+
+        if (!book) {
+            return res.status(404).json({
+                success: false,
+                error: `Book not found with ID: ${bookId}`
+            });
+        }
+
+        if (book.status === 'available') {
+            return res.status(400).json({
+                success: false,
+                error: 'Book is already available'
+            });
+        }
+
+        book.status = 'available';
+        await book.save();
+        
+        return res.status(200).json({
+            success: true,
+            data: book,
+            message: 'Book returned successfully'
+        });
+
+    } catch (err) {
+        console.error(`Error returned book with ID ${req.params.id}:`, err.message);
+
+        if (err.name === 'CastError') {
+            return res.status(400).json({
+                success: false,
+                error: `Invalid Book ID format: ${req.params.id}`
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            error: 'Internal Server Error during book returning.'
+        });
+    }
+};
