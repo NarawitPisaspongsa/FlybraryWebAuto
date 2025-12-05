@@ -38,7 +38,7 @@ export default async function RootLayout({
         />
       </head>
       <body className={`${notoSansThai.className} antialiased`}>
-      <NextAuthProvider session={session}>
+      <NextAuthProvider session={session} >
           <SearchProvider>
             <SnackbarProvider>
               <ModalProvider>

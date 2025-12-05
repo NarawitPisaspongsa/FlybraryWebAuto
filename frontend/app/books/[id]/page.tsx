@@ -15,7 +15,7 @@ export default function BookDetail() {
   const [transactions, setTransactions] = useState<TransactionInterface[]>([])
   const [loading, setLoading] = useState(false);
 
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const params = useParams();
   const id = params.id as string; 
 
@@ -86,7 +86,7 @@ export default function BookDetail() {
               <button
                   onClick={handleBorrowBook}
                   className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 shadow-lg"
-                  disabled={status === "loading" || !session?.user}
+                  disabled={!session?.user}
               >
                   Borrow Book
               </button>
@@ -94,7 +94,7 @@ export default function BookDetail() {
               <button
                   onClick={handleReturnBook}
                   className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 shadow-lg"
-                  disabled={status === "loading" || !session?.user}
+                  disabled={!session?.user}
               >
                   Return Book
               </button>
