@@ -8,10 +8,9 @@ dotenv.config({ path: "./.env" });
 
 connectDB();
 
-const books = require('./routes/books.js');
 const auth = require('./routes/auth.js'); 
-// const transactions = require('./routes/transactions.js');
-
+const books = require('./routes/books.js');
+const transactions = require('./routes/transactions.js');
 
 const app = express();
 
@@ -27,6 +26,6 @@ app.use(cookieParser());
 //Mount routers
 app.use("/api/v1/books", books);
 app.use("/api/v1/auth", auth); 
-// app.use("/api/v1/transactions", transactions);
+app.use("/api/v1/transactions", transactions);
 
 module.exports = app;

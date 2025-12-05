@@ -3,11 +3,11 @@ import { getBooks, getBook, borrowBook, returnBook, getBooksBorrowedByUser } fro
 
 const router = express.Router();
 
-router.get('/books', getBooks)
-router.get('/books/:id', getBook)
-router.get('books/borrow/:id', getBooksBorrowedByUser)
-router.put('/books/borrow/:id', borrowBook)
-router.put('/books/return/:id', returnBook)
+router.get('/', getBooks)
+router.get('/:id', getBook)
+router.get('/user/:id', getBooksBorrowedByUser)
+router.put('/borrow/:id', borrowBook)
+router.put('/return/:id', returnBook)
 
 module.exports = router;
 export default router;
