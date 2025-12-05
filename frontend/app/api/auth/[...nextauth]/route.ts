@@ -39,6 +39,8 @@ export const handler = NextAuth({
           picture: profile.image,
           lineId: profile.sub,   
         });
+
+        console.log("USER: " , userFromDB);
         
         token.userId = userFromDB.id;
         token.role = userFromDB.role;
