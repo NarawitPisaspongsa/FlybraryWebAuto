@@ -53,8 +53,8 @@ export const handler = NextAuth({
     },
     async session({ session, token }) {
       console.log("SESSION CALLBACK: ", { token });
-      // session.user.id = token.userId as number;
-      // session.user.role = token.role as string;
+      session.user.userId = token.userId as string;
+      session.user.role = token.role as string;
       session.user.name = token.name as string;
       session.user.picture = token.picture as string;
       session.user.lineId = token.sub as string;
