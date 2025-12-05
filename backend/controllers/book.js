@@ -43,6 +43,7 @@ exports.getBooks = async (req, res, next) => {
 //@access   Public
 exports.getBook = async (req, res, next) => {
     try {
+        console.log(req.params.id)
         const bookId = req.params.id;
 
         const book = await Book.findById(bookId);
