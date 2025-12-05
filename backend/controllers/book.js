@@ -1,4 +1,5 @@
 const Book = require('../models/Book.js')
+const User = require('../models/User.js');
 
 //@desc     Get all books or search books
 //@route    GET /api/v1/books
@@ -78,7 +79,7 @@ exports.getBook = async (req, res, next) => {
 //@desc     Get books borrowed by user
 //@route    Get /api/v1/books/user/:id
 //@access   Private
-exports.getBooksByUser = async (req, res, next) => {
+exports.getBooksBorrowedByUser = async (req, res, next) => {
     try {
         const userId = req.params.id;
         const books = await Book.find({ borrowedBy: userId });
@@ -117,6 +118,14 @@ exports.borrowBook = async (req, res, next) => {
         const userId = req.body.userId;
 
         const book = await Book.findById(bookId);
+        const user = await User.findById(userId);
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                error: `User not found with ID: ${userId}`
+            });
+        }
 
         if (!book) {
             return res.status(404).json({
@@ -133,6 +142,7 @@ exports.borrowBook = async (req, res, next) => {
         }
 
         book.status = 'borrowed';
+        book.borrowedBy = user;
         await book.save();
 
         await Transaction.create({
@@ -188,6 +198,7 @@ exports.returnBook = async (req, res, next) => {
         }
 
         book.status = 'available';
+        book.borrowedBy = null;
         await book.save();
         
         return res.status(200).json({
