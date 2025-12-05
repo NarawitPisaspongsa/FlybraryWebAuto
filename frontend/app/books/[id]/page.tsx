@@ -6,7 +6,7 @@ import Divider from "@/components/ui/Divider";
 import { borrowBook, getBook, returnBook } from "@/libs/book";
 import { BookInterface } from "@/interface/book";
 
-export default async function BookDetail({ params }: { params: { _id: string } }) {
+export default async function BookDetail({ params }: { params: { id: string } }) {
   const { data: session } = useSession();
   const [book, setBook] = useState<BookInterface>();
 
@@ -34,22 +34,22 @@ export default async function BookDetail({ params }: { params: { _id: string } }
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getBook(params._id);
+      const res = await getBook(params.id);
       setBook(res.data);
       setLoading(false);
     }
     fetchData();
-  }, [params._id]);
+  }, [params.id]);
 
   const handleBorrowBook = async () => {
-    const res = await borrowBook(params._id, session?.user.userId || '');
+    const res = await borrowBook(params.id, session?.user.userId || '');
     if (res.ok) {
       location.reload();
     }
   }
 
   const handleReturnBook = async () => {
-    const res = await returnBook(params._id);
+    const res = await returnBook(params.id);
     if (res.ok) {
       location.reload();
     }
