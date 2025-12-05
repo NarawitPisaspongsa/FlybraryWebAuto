@@ -1,3 +1,5 @@
+'use client';
+
 import Divider from "@/components/ui/Divider";
 import { BookInterface } from "@/interface/book";
 import { getBooks } from "@/libs/book";
