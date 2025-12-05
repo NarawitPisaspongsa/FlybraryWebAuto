@@ -7,56 +7,39 @@ import { borrowBook, getBook, returnBook } from "@/libs/book";
 import { BookInterface } from "@/interface/book";
 import { useParams } from "next/navigation";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
+import { getTransactionsByBook } from "@/libs/transaction";
+import { TransactionInterface } from "@/interface/transaction";
 
 export default function BookDetail() {
-  const [user, setUser] = useState<any>();
   const [book, setBook] = useState<BookInterface>();
+  const [transactions, setTransactions] = useState<TransactionInterface[]>([])
   const [loading, setLoading] = useState(false);
 
+  const { data: session, status } = useSession();
   const params = useParams();
   const id = params.id as string; 
-
-  const [transactions, setTransactions] = useState([
-    {
-      id: "T001",
-      userName: "John Doe",
-      borrowDate: "2025-01-01",
-      returnDate: null,
-    },
-    {
-      id: "T002",
-      userName: "Alice Smith",
-      borrowDate: "2024-12-10",
-      returnDate: "2024-12-28",
-    },
-    {
-      id: "T003",
-      userName: "Michael Chan",
-      borrowDate: "2024-11-01",
-      returnDate: "2024-11-20",
-    },
-  ]);
 
   useEffect(() => {
     async function fetchData() {
       const res = await getBook(id);
       setBook(res.data);
+
+      const transactionRes = await getTransactionsByBook(id);
+      setTransactions(transactionRes.data);
+
       setLoading(false);
     }
     setLoading(true)
     fetchData();
   }, [id]);
 
-  useEffect(() => {
-    const { data: session } = useSession();
-    setUser(session?.user);
-  }, []);
-
   const handleBorrowBook = async () => {
-    const res = await borrowBook(id, user.userId || '');
-    if (res.ok) {
-      location.reload();
+    if (!session?.user?.userId || !book?.bookId) {
+      console.log("Not loaded yet");
+      return;
     }
+
+    await borrowBook(id || '', session.user.userId);
   }
 
   const handleReturnBook = async () => {
@@ -72,7 +55,7 @@ export default function BookDetail() {
   )
   if (!book && !loading) return <p className="p-6 mt-20 w-full text-center justify-center">Book not found</p>;
 
-  const isBorrowedByUser = book?.borrowedBy === user?.userId;
+  const isBorrowedByUser = book?.borrowedBy === session?.user?.userId;
 
   return (
     <div className="p-10 md:px-20 py-10 w-full items-center justify-center gap-5 mx-auto mt-20 flex flex-col">
@@ -103,6 +86,7 @@ export default function BookDetail() {
               <button
                   onClick={handleBorrowBook}
                   className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 shadow-lg"
+                  disabled={status === "loading" || !session?.user}
               >
                   Borrow Book
               </button>
@@ -110,6 +94,7 @@ export default function BookDetail() {
               <button
                   onClick={handleReturnBook}
                   className="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 shadow-lg"
+                  disabled={status === "loading" || !session?.user}
               >
                   Return Book
               </button>
@@ -132,20 +117,20 @@ export default function BookDetail() {
           <div className="space-y-4">
             {transactions.map((trans) => (
               <div
-                key={trans.id}
+                key={trans._id}
                 className="p-4 border rounded-xl shadow-sm bg-white hover:shadow-md transition"
               >
-                <p className="text-lg font-semibold">{trans.userName}</p>
+                <p className="text-lg font-semibold">{trans?.user?.name}</p>
   
                 <div className="mt-2 text-sm text-gray-700 space-y-1">
                   <p>
                     <span className="font-medium">Borrowed:</span>{" "}
-                    {trans.borrowDate}
+                    {new Date(trans.borrowDate).toLocaleDateString()}
                   </p>
                   <p>
                     <span className="font-medium">Returned:</span>{" "}
                     {trans.returnDate ? (
-                      trans.returnDate
+                      new Date(trans.returnDate).toLocaleDateString()
                     ) : (
                       <span className="text-red-600">Not returned</span>
                     )}
