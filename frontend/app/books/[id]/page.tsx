@@ -5,14 +5,11 @@ import { useSession } from "next-auth/react";
 import Divider from "@/components/ui/Divider";
 import { borrowBook, getBook, returnBook } from "@/libs/book";
 import { BookInterface } from "@/interface/book";
-import { useRouter } from "next/router";
 
-export default async function BookDetail() {
+export default async function BookDetail({ params } : { params: { id: string } }) {
   const { data: session } = useSession();
   const [book, setBook] = useState<BookInterface>();
-  const router = useRouter()
-  const { id } = router.query
-  console.log(id)
+  const { id } = params 
 
   const [transactions, setTransactions] = useState([
     {
@@ -38,7 +35,7 @@ export default async function BookDetail() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getBook(id as string);
+      const res = await getBook(id);
       setBook(res.data);
       setLoading(false);
     }
@@ -46,14 +43,14 @@ export default async function BookDetail() {
   }, [id]);
 
   const handleBorrowBook = async () => {
-    const res = await borrowBook(id as string, session?.user.userId || '');
+    const res = await borrowBook(id, session?.user.userId || '');
     if (res.ok) {
       location.reload();
     }
   }
 
   const handleReturnBook = async () => {
-    const res = await returnBook(id as string || '');
+    const res = await returnBook(id || '');
     if (res.ok) {
       location.reload();
     }
