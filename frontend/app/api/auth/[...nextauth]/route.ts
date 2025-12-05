@@ -28,16 +28,16 @@ export const handler = NextAuth({
     async jwt({ token, account, profile }) {
       console.log("Line Account:", account);
       console.log("LINE profile:", profile);
-      const p = profile as LineProfile;
       
       if (account && profile) {
         token.accessToken = account.access_token;
         token.idToken = account.id_token;
+        const lineProfile = profile as LineProfile;
 
         const userFromDB = await findOrCreateUser({
-          displayName: profile.name,    
-          picture: profile.image,
-          lineId: profile.sub,   
+          displayName: lineProfile.name,    
+          picture: lineProfile.picture,
+          lineId: lineProfile.sub,   
         });
 
         console.log("USER: " , userFromDB);
