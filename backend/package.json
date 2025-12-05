@@ -1,4 +1,9 @@
 {
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start"
+  },
   "dependencies": {
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

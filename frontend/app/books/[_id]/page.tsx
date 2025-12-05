@@ -12,6 +12,7 @@ export default async function BookDetail() {
   const [book, setBook] = useState<BookInterface>();
   const router = useRouter()
   const { id } = router.query
+  console.log(id)
 
   const [transactions, setTransactions] = useState([
     {
