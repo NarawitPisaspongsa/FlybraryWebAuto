@@ -5,12 +5,13 @@ import { useSession } from "next-auth/react";
 import Divider from "@/components/ui/Divider";
 import { borrowBook, getBook, returnBook } from "@/libs/book";
 import { BookInterface } from "@/interface/book";
-import { useParams } from "next/navigation";
+import { useRouter } from "next/router";
 
 export default async function BookDetail() {
   const { data: session } = useSession();
   const [book, setBook] = useState<BookInterface>();
-  const { id } = useParams()
+  const router = useRouter()
+  const { id } = router.query
 
   const [transactions, setTransactions] = useState([
     {
