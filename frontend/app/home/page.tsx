@@ -34,21 +34,12 @@ export default function LibraryDashboard() {
     fetchData();
   }, []);
 
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState('all');
-
   const stats = {
     totalBooks: books.length,
     availableBooks: books.filter(b => b.status === 'available').length,
     borrowedBooks: books.filter(b => b.status === 'borrowed').length,
     totalTransactions: transactions.length,
   };
-
-  const filteredBooks = books.filter(book => {
-    const matchesSearch = book.name.toLowerCase().includes(searchTerm.toLowerCase()) || book?.author.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesFilter = filterStatus === 'all' || book.status === filterStatus;
-    return matchesSearch && matchesFilter;
-  });
 
   const getStatusColor = (status: string | undefined) => {
     switch(status) {
@@ -128,7 +119,7 @@ export default function LibraryDashboard() {
               : (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {filteredBooks.splice(0,4).map(book => (
+                  {books.splice(0,4).map(book => (
                     <div key={book._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
                       <div className="flex gap-4">
                         <img
