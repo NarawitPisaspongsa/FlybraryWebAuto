@@ -9,7 +9,7 @@ interface LineProfile {
   lineId: string;
 }
 
-export const handler = NextAuth({
+const handler = NextAuth({
   providers: [
     LineProvider({
       clientId: process.env.LINE_CHANNEL_ID!,
