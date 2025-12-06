@@ -1,6 +1,7 @@
 'use client'
 
 import Divider from "@/components/ui/Divider";
+import LoadingSpinner from "@/components/ui/LoadingSpinner";
 import { BookInterface } from "@/interface/book";
 import { TransactionInterface } from "@/interface/transaction";
 import { getBooksBorrowedByUser } from "@/libs/book";
@@ -13,6 +14,9 @@ export default function ProfilePage() {
   const { data : session } = useSession();
   const user = session?.user
 
+  const [booksLoading, setBooksLoading] = useState(false);
+  const [transactionLoading, setTransactionLoading] = useState(false);
+
   const [transactions, setTransactions] = useState<TransactionInterface[]>([]);
   const [booksBorrowed, setBooksBorrowed] = useState<BookInterface[]>([]);
 
@@ -23,8 +27,13 @@ export default function ProfilePage() {
 
       const bookRes = await getBooksBorrowedByUser(user?.userId || '');
       setBooksBorrowed(bookRes.data);
+
+      setBooksLoading(false)
+      setTransactionLoading(false)
     }
 
+    setBooksLoading(true)
+    setTransactionLoading(true)
     fetchData();
   }, [user?.userId]);
 
@@ -83,6 +92,10 @@ export default function ProfilePage() {
           </div>
         ))}
       </div>
+      
+      {booksLoading && (
+        <LoadingSpinner></LoadingSpinner>
+      )}
 
       {booksBorrowed?.length === 0 && (
         <p className="text-gray-500 mb-10">You are not borrowing any books.</p>
@@ -118,6 +131,10 @@ export default function ProfilePage() {
           </div>
         ))}
       </div>
+
+      {transactionLoading && (
+        <LoadingSpinner></LoadingSpinner>
+      )}
 
       {transactions.length === 0 && (
         <p className="text-gray-500 text-center mt-10">

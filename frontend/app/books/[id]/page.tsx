@@ -99,7 +99,7 @@ export default function BookDetail() {
     }
 
   if (loading) return (
-    <div className="flex justify-center mt-30 p-16 h-30 w-30 text-center">
+    <div className="flex justify-center mt-32 p-16 h-30 w-30 text-center">
       <LoadingSpinner className="!size-24"/>
     </div>
   )
@@ -108,7 +108,7 @@ export default function BookDetail() {
   const isBorrowedByUser = book?.borrowedBy === session?.user?.userId;
 
   return (
-    <div className="p-10 md:px-20 py-10 w-full items-center justify-center gap-5 mx-auto mt-20 flex flex-col bg-gray-50">
+    <div className="p-10 md:px-20 py-10 w-full xl:w-[60%] items-center justify-center gap-5 mx-auto mt-20 flex flex-col">
       <div className="flex flex-col md:flex-row gap-10 md:gap-20 mx-auto items-center">
         <img
           src={book?.cover || ''}

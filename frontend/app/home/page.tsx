@@ -125,7 +125,7 @@ export default function LibraryDashboard() {
               : (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {books.splice(0,4).map(book => (
+                  {books.slice(0,4).map(book => (
                     <div key={book._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
                       <div className="flex gap-4">
                         <img
@@ -164,7 +164,7 @@ export default function LibraryDashboard() {
               {transLoading ? <LoadingSpinner></LoadingSpinner> 
               : <>
                 <div className="space-y-4">
-                  {transactions.map(transaction => (
+                  {transactions.slice(0,6).map(transaction => (
                     <div key={transaction._id} className="border-l-4 border-blue-500 pl-4 py-2">
                       <div className="flex items-start gap-3">
                         <img
