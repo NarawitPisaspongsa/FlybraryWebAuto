@@ -1,6 +1,7 @@
 const Book = require('../models/Book.js')
 const User = require('../models/User');  
 const Transaction = require('../models/Transaction.js')
+const mqttClient = require('../utils/mqtt.js');
 
 //@desc     Get all books or search books
 //@route    GET /api/v1/books
@@ -111,13 +112,13 @@ exports.getBooksBorrowedByUser = async (req, res, next) => {
 };
 
 
-//@desc     Update book status to borrowed
-//@route    Put /api/v1/books/borrow/:id
-//@access   Private
+
 exports.borrowBook = async (req, res, next) => {
     try {
         const bookId = req.params.id;
         const userId = req.body.userId;
+
+        console.log("Borrow Book - Book ID:", bookId, "User ID:", userId);
 
         const book = await Book.findById(bookId);
         const user = await User.findById(userId);
@@ -143,16 +144,35 @@ exports.borrowBook = async (req, res, next) => {
             });
         }
 
+        // Mark book as borrowed
         book.status = 'borrowed';
-        book.borrowedBy = userId;
+        book.borrowedBy = user;
         await book.save();
 
-        await Transaction.create({
+        // Create transaction (this has slot/machine info if needed)
+        const tx = await Transaction.create({
             user: userId,
             book: bookId,
             borrowDate: new Date(),
             returnDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         });
+
+        // ---- MQTT PUBLISH TO ESP32 ----
+        // you MUST decide which machine/book position this book belongs to
+        const slot = book.slot;        // e.g. 0–3
+        const machineId = book.machine; // e.g. "F1"
+
+        const topic = `flybrary/${machineId}/borrow`;
+        const payload = JSON.stringify({
+            transactionId: tx._id,
+            bookId: bookId,
+            slot: slot,
+            userId: userId,
+            isbn: book.isbn
+        });
+
+        mqttClient.publish(topic, payload);
+        console.log("MQTT Published:", topic, payload);
 
         return res.status(200).json({
             success: true,
@@ -161,20 +181,22 @@ exports.borrowBook = async (req, res, next) => {
         });
 
     } catch (err) {
+        console.error(`Error borrowing book with ID ${req.params.id}:`, err.message);
+
         if (err.name === 'CastError') {
             return res.status(400).json({
                 success: false,
-                error: `Invalid ID format: ${err.message}`
+                error: `Invalid Book ID format: ${req.params.id}`
             });
         }
 
         return res.status(500).json({
             success: false,
-            error: 'Internal Server Error during book borrowing.',
-            debug: err.message 
+            error: 'Internal Server Error during book borrowing.'
         });
     }
 };
+
 
 //@desc     Update book status to available
 //@route    Put /api/v1/books/return/:id
