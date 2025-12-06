@@ -11,6 +11,7 @@ connectDB();
 const auth = require('./routes/auth.js'); 
 const books = require('./routes/books.js');
 const transactions = require('./routes/transactions.js');
+const checkReturn = require("./routes/checkReturn.js");
 
 const app = express();
 
@@ -34,6 +35,8 @@ app.use(cookieParser());
 app.use("/api/v1/books", books);
 app.use("/api/v1/auth", auth); 
 app.use("/api/v1/transactions", transactions);
+app.post("/check-return", checkReturn);
+
 
 app.listen(process.env.PORT || 3000, () => {
   console.log('Server running');

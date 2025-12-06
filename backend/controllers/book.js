@@ -187,7 +187,7 @@ exports.borrowBook = async (req, res, next) => {
             message: 'Book borrowed successfully'
         });
 
-    } catch (err) {
+    } catch (err) { 
         console.error(`Error borrowing book with ID ${req.params.id}:`, err.message);
 
         if (err.name === 'CastError') {
