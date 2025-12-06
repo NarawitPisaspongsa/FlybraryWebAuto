@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "start": "node server.js"
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "server": "node server.js"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
