@@ -10,6 +10,7 @@ export async function logout() {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
   })
 }
 
@@ -26,6 +27,7 @@ export async function findOrCreateUser(profile: any) {
       Accept: "application/json",
     },
     body: JSON.stringify({ profile }),
+    credentials: "include",
   });
 
   if (!res.ok) {

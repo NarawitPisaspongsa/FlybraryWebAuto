@@ -10,6 +10,7 @@ export async function getBooks() {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
   })
 }
 
@@ -18,6 +19,7 @@ export async function getBook(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
   }
 
@@ -26,6 +28,7 @@ export async function getBooksBorrowedByUser(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
   }
   
@@ -38,6 +41,7 @@ export async function borrowBook(id : string, userId : string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ userId: userId }),
+      credentials: "include",
     })
   }
 
@@ -46,5 +50,6 @@ export async function returnBook(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
 }

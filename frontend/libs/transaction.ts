@@ -10,6 +10,7 @@ export async function getTransactions() {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: "include",
   })
 }
 
@@ -18,6 +19,7 @@ export async function getTransaction(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
   }
 
@@ -26,6 +28,7 @@ export async function getTransactionsByUser(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
   }
 
@@ -34,5 +37,6 @@ export async function getTransactionsByBook(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
+      credentials: "include",
     })
   }
