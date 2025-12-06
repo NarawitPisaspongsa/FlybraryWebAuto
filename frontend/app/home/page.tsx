@@ -15,7 +15,6 @@ export default function LibraryDashboard() {
   const [bookLoading, setBookLoading] = useState(false)
   const [transLoading ,setTransLoading] = useState(false)
 
-
   const [books, setBooks] = useState<BookInterface[]>([])
   const [transactions, setTransactions] = useState<TransactionInterface[]>([])
 
@@ -24,13 +23,19 @@ export default function LibraryDashboard() {
       const res = await getBooks()
       setBooks(res.data);
       setBookLoading(false);
+    }
 
+    setBookLoading(true);
+    fetchData();
+  }, []);
+  
+  useEffect(() => {
+    async function fetchData() {
       const txres = await getTransactions()
       setTransactions(txres.data);
       setTransLoading(false);
     }
 
-    setBookLoading(true);
     setTransLoading(true);
     fetchData();
   }, []);
