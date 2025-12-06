@@ -50,6 +50,6 @@ export async function returnBook(id : string) {
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: "include",
+      
     })
 }

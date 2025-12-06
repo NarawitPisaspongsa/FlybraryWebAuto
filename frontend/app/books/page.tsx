@@ -24,7 +24,7 @@ export default function BooksPage() {
   }, []);
 
   return (
-    <div className="p-4 md:px-10 mt-20">
+    <div className="p-4 md:px-10 mt-20 bg-gray-50">
       <h1 className="text-3xl font-bold mb-4 ml-6">Books</h1>
       <Divider />
 
