@@ -58,12 +58,12 @@ export default function BooksPage() {
             />
       
             <div className="p-4 w-full">
-              <h2 className="text-xl font-semibold">{book.name}</h2>
-              <p className="text-gray-600 font-semibold text-sm">{book.author}</p>
+              <h2 className="text-xl font-semibold">{book?.name}</h2>
+              <p className="text-gray-600 font-semibold text-sm">{book?.author}</p>
       
               <Divider />
       
-              <p className="text-gray-600 line-clamp-4">{book.desc}</p>
+              <p className="text-gray-600 line-clamp-4">{book?.desc}</p>
             </div>
           </Link>
         ))}

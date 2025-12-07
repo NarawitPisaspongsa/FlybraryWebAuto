@@ -78,8 +78,8 @@ export default function ProfilePage() {
             />
             <div className="flex flex-col justify-between">
               <div className="space-y-1">
-                <p className="font-semibold text-lg">{book.name}</p>
-                <p className="font-semibold text-sm">{book.author}</p>
+                <p className="font-semibold text-lg">{book?.name}</p>
+                <p className="font-semibold text-sm">{book?.author}</p>
               </div>
 
               <a
@@ -97,7 +97,7 @@ export default function ProfilePage() {
         <LoadingSpinner></LoadingSpinner>
       )}
 
-      {booksBorrowed?.length === 0 && (
+      {(booksBorrowed?.length === 0 && !booksLoading) && (
         <p className="text-gray-500 mb-10">You are not borrowing any books.</p>
       )}
 
@@ -113,17 +113,26 @@ export default function ProfilePage() {
           >
             <div className="flex justify-between">
               <div>
-                <p className="font-semibold text-lg">{trans.book.name}</p>
-                <p className="text-gray-600 text-sm">Transaction ID: {trans._id}</p>
+                <p className="font-semibold text-lg">{trans?.book.name}</p>
+                <p className="text-gray-600 text-sm">Transaction ID: {trans?._id}</p>
 
                 <div className="mt-2 text-sm text-gray-700 space-y-1">
+                <span
+                  className={`absolute top-3 right-3 px-3 py-1 text-sm rounded-full shadow-md ${
+                    trans?.book.status === "available"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {trans?.book.status === "available" ? "Available" : "Borrowed"}
+                </span>
                   <p>
                     <span className="font-medium">Borrowed:</span>{" "}
-                    {trans.borrowDate.toString()}
+                    {trans?.borrowDate.toString()}
                   </p>
                   <p>
                     <span className="font-medium">Return By:</span>{" "}
-                    {trans.returnBy.toString()}
+                    {trans?.returnBy.toString()}
                   </p>
                 </div>
               </div>
@@ -136,7 +145,7 @@ export default function ProfilePage() {
         <LoadingSpinner></LoadingSpinner>
       )}
 
-      {transactions.length === 0 && (
+      {(transactions.length === 0 && !transactionLoading) && (
         <p className="text-gray-500 text-center mt-10">
           No borrowing history yet.
         </p>

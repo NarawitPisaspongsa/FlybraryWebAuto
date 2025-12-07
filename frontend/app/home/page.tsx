@@ -60,7 +60,7 @@ export default function LibraryDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-medium">Total Books</p>
-                <p className="text-3xl font-bold text-gray-800 mt-1">{stats.totalBooks}</p>
+                <p className="text-3xl font-bold text-gray-800 mt-1">{stats?.totalBooks}</p>
               </div>
               <div className="bg-blue-100 p-3 rounded-full">
                 <Book className="w-6 h-6 text-blue-600" />
@@ -72,7 +72,7 @@ export default function LibraryDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-medium">Available</p>
-                <p className="text-3xl font-bold text-gray-800 mt-1">{stats.availableBooks}</p>
+                <p className="text-3xl font-bold text-gray-800 mt-1">{stats?.availableBooks}</p>
               </div>
               <div className="bg-green-100 p-3 rounded-full">
                 <TrendingUp className="w-6 h-6 text-green-600" />
@@ -84,7 +84,7 @@ export default function LibraryDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-medium">Borrowed</p>
-                <p className="text-3xl font-bold text-gray-800 mt-1">{stats.borrowedBooks}</p>
+                <p className="text-3xl font-bold text-gray-800 mt-1">{stats?.borrowedBooks}</p>
               </div>
               <div className="bg-red-100 p-3 rounded-full">
                 <Clock className="w-6 h-6 text-red-600" />
@@ -96,7 +96,7 @@ export default function LibraryDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-gray-500 text-sm font-medium">Total Transactions</p>
-                <p className="text-3xl font-bold text-gray-800 mt-1">{stats.totalTransactions}</p>
+                <p className="text-3xl font-bold text-gray-800 mt-1">{stats?.totalTransactions}</p>
               </div>
               <div className="bg-purple-100 p-3 rounded-full">
                 <Users className="w-6 h-6 text-purple-600" />
@@ -121,14 +121,14 @@ export default function LibraryDashboard() {
                     <div key={book._id} className="border border-gray-200 rounded-lg p-4 hover:shadow-lg transition-shadow">
                       <div className="flex gap-4">
                         <img
-                          src={book.cover}
-                          alt={book.name}
+                          src={book?.cover}
+                          alt={book?.name}
                           className="w-20 h-28 object-cover rounded-md"
                         />
                         <div className="flex-1">
-                          <h3 className="font-semibold text-gray-800 mb-1 line-clamp-2">{book.name}</h3>
-                          <p className="text-sm text-gray-600 mb-2">by {book.author}</p>
-                          <p className="text-xs text-gray-500 mb-2">ISBN: {book.ISBN}</p>
+                          <h3 className="font-semibold text-gray-800 mb-1 line-clamp-2">{book?.name}</h3>
+                          <p className="text-sm text-gray-600 mb-2">by {book?.author}</p>
+                          <p className="text-xs text-gray-500 mb-2">ISBN: {book?.ISBN}</p>
                           <span
                             className={`absolute top-3 right-3 px-3 py-1 text-sm rounded-full shadow-md ${
                               book.status === "available"
@@ -136,7 +136,7 @@ export default function LibraryDashboard() {
                                 : "bg-red-100 text-red-700"
                             }`}
                           >
-                            {book.status === "available" ? "Available" : "Borrowed"}
+                            {book?.status === "available" ? "Available" : "Borrowed"}
                           </span>
                         </div>
                       </div>
@@ -166,15 +166,15 @@ export default function LibraryDashboard() {
                     <div key={transaction._id} className="border-l-4 border-blue-500 pl-4 py-2">
                       <div className="flex items-start gap-3">
                         <img
-                          src={transaction.user.profile}
+                          src={transaction?.user.profile}
                           alt={transaction.user.name}
                           className="w-10 h-10 rounded-full"
                         />
                         <div className="flex-1">
-                          <p className="font-medium text-gray-800">{transaction.user.name}</p>
-                          <p className="text-sm text-gray-600 line-clamp-1">{transaction.book.name}</p>
+                          <p className="font-medium text-gray-800">{transaction?.user.name}</p>
+                          <p className="text-sm text-gray-600 line-clamp-1">{transaction?.book.name}</p>
                           <p className="text-xs text-gray-500 mt-1">
-                            Due: {transaction.returnBy.toString()}
+                            Due: {transaction?.returnBy.toString()}
                           </p>
                         </div>
                       </div>
