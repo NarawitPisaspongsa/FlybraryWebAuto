@@ -11,6 +11,8 @@ connectDB();
 const auth = require('./routes/auth.js'); 
 const books = require('./routes/books.js');
 const transactions = require('./routes/transactions.js');
+const cronRoutes = require("./routes/cron.js");
+
 
 const app = express();
 
@@ -34,6 +36,7 @@ app.use(cookieParser());
 app.use("/api/v1/books", books);
 app.use("/api/v1/auth", auth); 
 app.use("/api/v1/transactions", transactions);
+app.use("/api/cron", cronRoutes);
 
 
 app.listen(process.env.PORT || 3000, () => {
