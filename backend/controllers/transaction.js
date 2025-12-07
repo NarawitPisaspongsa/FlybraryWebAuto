@@ -5,11 +5,15 @@ const Transaction = require('../models/Transaction.js')
 //@access   Public
 exports.getTransactions = async (req, res, next) => {
     try {
-        transaction = await Transaction.find({});
+        const limit = parseInt(req.query.limit) || 6;
+
+        const transactions = await Transaction.find({})
+            .sort({ createdAt: -1 }) 
+            .limit(limit);
 
         return res.status(200).json({
             success: true,
-            data: transaction
+            data: transactions
         })
 
     } catch (err) {
