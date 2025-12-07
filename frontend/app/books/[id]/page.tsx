@@ -162,7 +162,7 @@ export default function BookDetail() {
 
       <div className="w-full md:w-[80%]">
           <Divider />
-          <h2 className="mt-6 text-2xl font-bold mb-4 ml-2">History</h2>
+          <h2 className="mt-6 text-2xl font-bold mb-4 ml-2">Recent Activity</h2>
   
           <div className="space-y-4">
             {transactions.map((trans) => (

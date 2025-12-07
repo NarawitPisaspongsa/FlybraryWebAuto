@@ -47,14 +47,6 @@ export default function LibraryDashboard() {
     totalTransactions: transactions.length,
   };
 
-  const getStatusColor = (status: string | undefined) => {
-    switch(status) {
-      case 'available': return 'bg-green-100 text-green-800';
-      case 'borrowed': return 'bg-yellow-100 text-yellow-800';
-      default: return 'bg-gray-100 text-gray-800';
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br bg-gray-50 p-6 mt-16">
       <div className="max-w-7xl mx-auto">
@@ -137,8 +129,14 @@ export default function LibraryDashboard() {
                           <h3 className="font-semibold text-gray-800 mb-1 line-clamp-2">{book.name}</h3>
                           <p className="text-sm text-gray-600 mb-2">by {book.author}</p>
                           <p className="text-xs text-gray-500 mb-2">ISBN: {book.ISBN}</p>
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(book.status)}`}>
-                            {book.status}
+                          <span
+                            className={`absolute top-3 right-3 px-3 py-1 text-sm rounded-full shadow-md ${
+                              book.status === "available"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                          >
+                            {book.status === "available" ? "Available" : "Borrowed"}
                           </span>
                         </div>
                       </div>
