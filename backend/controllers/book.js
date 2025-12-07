@@ -159,10 +159,7 @@ exports.borrowBook = async (req, res, next) => {
 
         const topic = `flybrary/${machineId}/borrow`;
         const payload = JSON.stringify({
-            transactionId: tx._id,
-            bookId: bookId,
-            userId: userId,
-            isbn: book.isbn
+            isbn: book.ISBN
         });
 
         await publishMqtt(mqttClient, topic, payload);
