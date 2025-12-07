@@ -123,7 +123,7 @@ export default function ProfilePage() {
                   </p>
                   <p>
                     <span className="font-medium">Return By:</span>{" "}
-                    {trans.returnDate.toString()}
+                    {trans.returnBy.toString()}
                   </p>
                 </div>
               </div>

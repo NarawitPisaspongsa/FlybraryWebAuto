@@ -6,5 +6,6 @@ export interface TransactionInterface {
   book: BookInterface
   user:  lineUserInterface,
   borrowDate: Date,
+  returnBy: Date,
   returnDate: Date,
 }

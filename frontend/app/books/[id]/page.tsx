@@ -180,7 +180,7 @@ export default function BookDetail() {
                   <p>
                     <span className="font-medium">Returned:</span>{" "}
                     {trans.returnDate ? (
-                      (trans?.borrowDate).toString()
+                      (trans?.returnDate).toString()
                     ) : (
                       <span className="text-red-600">Not returned</span>
                     )}

@@ -173,7 +173,7 @@ exports.borrowBook = async (req, res, next) => {
             user: userId,
             book: bookId,
             borrowDate: new Date(),
-            returnDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+            returnBy: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         });
 
         return res.status(200).json({
@@ -207,6 +207,14 @@ exports.returnBook = async (req, res, next) => {
     try {
         const bookId = req.params.id;
         const book = await Book.findById(bookId);
+        const tx = await Transaction.findOne({ book: bookId });
+
+        if (!tx) {
+            return res.status(404).json({
+                success: false,
+                error: `Transaction not found for Book ID: ${bookId}`
+            });
+        }
 
         if (!book) {
             return res.status(404).json({
@@ -238,6 +246,9 @@ exports.returnBook = async (req, res, next) => {
         book.status = 'available';
         book.borrowedBy = null;
         await book.save();
+
+        tx.returnDate = new Date();
+        await tx.save();
         
         return res.status(200).json({
             success: true,
